@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { MongoClient } from "mongodb";
 import { transRouter } from "./routes/transactions.js";
 
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(cors());
 
 // Create a MongoDB Connection
 const MONGO_URL = process.env.MONGO_URL;

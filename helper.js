@@ -1,6 +1,7 @@
 import { ObjectId } from "bson";
 import { client } from "./index.js";
 
+// GET all transaction details from Database
 async function getTransaction() {
   return await client
     .db("moneymanager")
@@ -9,6 +10,7 @@ async function getTransaction() {
     .toArray();
 }
 
+// POST new transaction to the Database
 async function createTransaction(text, amount) {
   return await client
     .db("moneymanager")
@@ -16,6 +18,7 @@ async function createTransaction(text, amount) {
     .insertOne({ text, amount });
 }
 
+// DELETE transaction from the Database
 async function deleteTransaction(id) {
   return await client
     .db("moneymanager")
