@@ -10,6 +10,13 @@ async function getTransaction() {
     .toArray();
 }
 
+async function getOneTransaction(id) {
+  return await client
+    .db("moneymanager")
+    .collection("transactions")
+    .findOne({ _id: ObjectId(id) });
+}
+
 // POST new transaction to the Database
 async function createTransaction(text, amount) {
   return await client
