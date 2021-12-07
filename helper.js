@@ -23,7 +23,7 @@ async function deleteTransaction(id) {
   return await client
     .db("moneymanager")
     .collection("transactions")
-    .deleteOne({ id: ObjectId });
+    .deleteOne({ _id: ObjectId(id) });
 }
 
 export { getTransaction, createTransaction, deleteTransaction };
