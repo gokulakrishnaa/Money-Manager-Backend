@@ -60,9 +60,9 @@ router.route("/login").post(async (request, response) => {
 });
 
 // Login status
-router.route("/loginstatus").get(async (request, response) => {
-  const user = await getStatus();
-  response.send({ user });
+router.route("/loginstatus/:email").get(async (request, response) => {
+  const user = await getStatus(request.params.email);
+  response.send(user);
 });
 
 // Amazon Logout
