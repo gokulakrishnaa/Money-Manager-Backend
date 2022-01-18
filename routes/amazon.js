@@ -1,6 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { createUser, getUserByMail } from "../amazonhelper.js";
+import {
+  createUser,
+  getUserByMail,
+  createStatus,
+  getStatus,
+} from "../amazonhelper.js";
 import { genPassword } from "../index.js";
 
 const router = express.Router();
