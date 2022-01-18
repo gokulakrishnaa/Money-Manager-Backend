@@ -65,6 +65,4 @@ router.route("/loginstatus/:email").get(async (request, response) => {
   response.send(user);
 });
 
-// Amazon Logout
-
 export const amazonRouter = router;
