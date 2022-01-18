@@ -12,3 +12,16 @@ export async function getUserByMail(email) {
     .collection("users")
     .findOne({ email: email });
 }
+
+// Create Login status
+export async function createStatus(data) {
+  return await client.db("amazon").collection("status").insertOne(data);
+}
+
+// Get Login status
+export async function getStatus(email) {
+  return await client
+    .db("amazon")
+    .collection("status")
+    .findOne({ email: email });
+}

@@ -44,10 +44,20 @@ router.route("/login").post(async (request, response) => {
   const storedPassword = userFromDB.password;
   const isPasswordMatch = await bcrypt.compare(password, storedPassword);
   if (isPasswordMatch) {
-    response.status(200).send({ message: "Login Successful" });
+    const result = await createStatus({
+      email: email,
+      current_status: "success",
+    });
+    response.send({ message: "Login Successful", result });
   } else {
     response.status(401).send({ message: "Invalid Credentials" });
   }
+});
+
+// Login status
+router.route("/loginstatus").get(async (request, response) => {
+  const user = await getStatus();
+  response.send({ user });
 });
 
 // Amazon Logout
