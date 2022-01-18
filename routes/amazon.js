@@ -5,6 +5,7 @@ import {
   getUserByMail,
   createStatus,
   getStatus,
+  createOrder,
 } from "../amazonhelper.js";
 import { genPassword } from "../index.js";
 
@@ -63,6 +64,12 @@ router.route("/login").post(async (request, response) => {
 router.route("/loginstatus/:email").get(async (request, response) => {
   const user = await getStatus(request.params.email);
   response.send(user);
+});
+
+// Orders details
+router.route("/paydata").post(async (request, response) => {
+  const data = await createOrder(request.body.data);
+  response.send(data);
 });
 
 export const amazonRouter = router;

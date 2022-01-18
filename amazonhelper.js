@@ -25,3 +25,8 @@ export async function getStatus(email) {
     .collection("status")
     .findOne({ email: email });
 }
+
+// Create order
+export async function createOrder(data) {
+  return await client.db("amazon").collection("orders").insertOne(data);
+}
