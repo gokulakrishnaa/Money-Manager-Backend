@@ -5,8 +5,11 @@ import bcrypt from "bcrypt";
 import { MongoClient } from "mongodb";
 import { transRouter } from "./routes/transactions.js";
 import { amazonRouter } from "./routes/amazon.js";
+import Stripe from "stripe";
 
 dotenv.config();
+
+const stripe = new Stripe(process.env.SECRET_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -43,5 +46,18 @@ app.use("/api/transactions", transRouter);
 
 // Amazon Router
 app.use("/api/amazon", amazonRouter);
+
+// Payment gateway
+app.post("/payments/create", async (req, res) => {
+  const total = req.query.total;
+  console.log("Payment Request Received", total);
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total,
+    currency: "inr",
+  });
+  res.status(201).send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
 
 app.listen(PORT, () => console.log("App Started in", PORT));
