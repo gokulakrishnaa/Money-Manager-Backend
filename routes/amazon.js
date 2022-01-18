@@ -53,7 +53,7 @@ router.route("/login").post(async (request, response) => {
       email: email,
       current_status: "success",
     });
-    response.send({ message: "Login Successful" });
+    response.send({ message: "Login Successful", result });
   } else {
     response.status(401).send({ message: "Invalid Credentials" });
   }
