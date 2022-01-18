@@ -68,8 +68,9 @@ router.route("/loginstatus/:email").get(async (request, response) => {
 
 // Orders details
 router.route("/paydata").post(async (request, response) => {
-  const data = await createOrder(request.body.data);
-  response.send(data);
+  const data = request.body;
+  const result = await createOrder(data);
+  response.send(result);
 });
 
 export const amazonRouter = router;
