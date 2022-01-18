@@ -49,15 +49,19 @@ app.use("/api/amazon", amazonRouter);
 
 // Payment gateway
 app.post("/payments/create", async (req, res) => {
-  const total = req.query.total;
-  console.log("Payment Request Received", total);
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: total,
-    currency: "inr",
-  });
-  res.status(201).send({
-    clientSecret: paymentIntent.client_secret,
-  });
+  try {
+    const total = req.query.total;
+    console.log("Payment Request Received", total);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: total,
+      currency: "inr",
+    });
+    res.status(201).send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (err) {
+    res.status(401).send(err);
+  }
 });
 
 app.listen(PORT, () => console.log("App Started in", PORT));
