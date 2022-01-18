@@ -1,8 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import bcrypt from "bcrypt";
 import { MongoClient } from "mongodb";
 import { transRouter } from "./routes/transactions.js";
+import { amazonRouter } from "./routes/amazon.js";
 
 dotenv.config();
 
@@ -24,6 +26,13 @@ async function createConnection() {
 
 export const client = await createConnection();
 
+export async function genPassword(password) {
+  const NO_OF_ROUNDS = 10;
+  const salt = await bcrypt.genSalt(NO_OF_ROUNDS);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  return hashedPassword;
+}
+
 // Get Request
 app.get("/", (request, response) => {
   response.send("Hello");
@@ -31,5 +40,8 @@ app.get("/", (request, response) => {
 
 // Transaction Router
 app.use("/api/transactions", transRouter);
+
+// Amazon Router
+app.use("/api/amazon", amazonRouter);
 
 app.listen(PORT, () => console.log("App Started in", PORT));
