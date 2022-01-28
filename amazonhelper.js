@@ -36,8 +36,5 @@ export async function orderDataById(email) {
   return await client
     .db("amazon")
     .collection("orders")
-    .find({ email: email })
-    .sort({ created: -1 })
-    .limit(1)
-    .toArray();
+    .findOne({ email: email });
 }
