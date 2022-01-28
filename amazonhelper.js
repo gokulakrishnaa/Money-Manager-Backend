@@ -30,3 +30,11 @@ export async function getStatus(email) {
 export async function createOrder(data) {
   return await client.db("amazon").collection("orders").insertOne(data);
 }
+
+//Get Order Data
+export async function orderDataById(email) {
+  return await client
+    .db("amazon")
+    .collection("orders")
+    .findOne({ email: email });
+}
