@@ -71,7 +71,7 @@ router.route("/loginstatus/:email").get(async (request, response) => {
 router.route("/paydata").post(async (request, response) => {
   const data = request.body;
   const result = await createOrder(data);
-  response.send(result);
+  response.send(data);
 });
 
 //Get Orders
